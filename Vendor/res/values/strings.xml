@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Vendor</string>
+    <!-- Login Screen -->
+    <string name="login_scr_edtxt_email">Email ID</string>
+    <string name="login_scr_edtxt_password">Password</string>
+    <string name="login_scr_btn_login">Login</string>
+    <string name="login_scr_new_user">Don\'t have account? Sign up!</string>
+
+    <!-- Register Screen -->
+    <string name="title_activity_register">Register a new user</string>
+    <string name="register_scr_edtxt_name">Name</string>
+    <string name="register_scr_edtxt_email">Email ID</string>
+    <string name="register_scr_edtxt_password">Password</string>
+    <string name="register_scr_edtxt_city">City</string>
+    <string name="register_scr_btn_register">Sign up</string>
+
+    <!-- Main Activity -->
+    <string name="title_activity_main_screen">Vendor</string>
+
+    <!-- Contact Screen -->
+    <string name="contact_src_edtxt_name">Name</string>
+    <string name="contact_src_edtxt_email">Email ID</string>
+    <string name="contact_src_edtxt_message">Enter your email info</string>
+    <string name="contact_src_btn_send">Send Email</string>
+
+    <!-- Setting screen -->
+    <string name="setting_scr_edtxt_name">Name</string>
+    <string name="setting_scr_edtxt_email">Email ID</string>
+    <string name="setting_scr_edtxt_password">Password</string>
+    <string name="setting_scr_edtxt_city">City</string>
+    <string name="setting_scr_btn_update">Update my Profile</string>
+
+    <!-- Menu string -->
+    <string name="menu_logout">Logout</string>
+    <string name="menu_back">Back</string>
+    <string name="title_activity_vendor_list">VendorListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+</resources>

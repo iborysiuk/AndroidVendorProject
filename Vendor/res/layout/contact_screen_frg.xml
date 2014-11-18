@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <EditText
+        android:id="@+id/contact_scr_edtxt_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="@string/contact_src_edtxt_name"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/contact_scr_edtxt_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/contact_src_edtxt_email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/contact_scr_edtxt_message"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="top|left|center_vertical"
+        android:hint="@string/contact_src_edtxt_message"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/contact_scr_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/contact_src_btn_send" />
+
+</LinearLayout>
