@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.yborisjuk.vendor.R;
@@ -27,10 +28,13 @@ import com.yborisjuk.vendor.libs.mySharedPreferences;
 import com.yborisjuk.vendor.libs.json.DirectionsJSONParser;
 import com.yborisjuk.vendor.libs.json.LoadUrlForImage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.Address;
@@ -40,14 +44,16 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask.Status;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,7 +63,7 @@ public class DetailActivity extends Activity implements LocationListener {
 
 	private TextView inputName, inputEmail, inputPhone, inputAdress,
 			inputWorkTime;
-	private Button btn_save;
+	private Button btn_save, btn_direction;
 	public ImageView imgLogo;
 	private mySharedPreferences sharedPreferences;
 	private String dvUID, dvName, dvEmail, dvPhone, dvCountry, dvCity,
@@ -86,6 +92,7 @@ public class DetailActivity extends Activity implements LocationListener {
 		imgLogo = (ImageView) findViewById(R.id.detail_scr_img);
 
 		btn_save = (Button) findViewById(R.id.detail_src_btn_save);
+		btn_direction = (Button) findViewById(R.id.detail_src_btn_direction);
 
 		dvUID = getIntent().getStringExtra("uid");
 		dvName = getIntent().getStringExtra("name");
@@ -108,6 +115,8 @@ public class DetailActivity extends Activity implements LocationListener {
 
 		// set clickListener
 		btn_save.setOnClickListener(clickListener);
+		btn_direction.setOnClickListener(clickListener);
+
 		inputEmail.setOnClickListener(clickListener);
 		inputPhone.setOnClickListener(clickListener);
 
@@ -333,8 +342,8 @@ public class DetailActivity extends Activity implements LocationListener {
 
 				// Adding all the points in the route to LineOptions
 				lineOptions.addAll(points);
-				lineOptions.width(2);
-				lineOptions.color(Color.RED);
+				lineOptions.width(10);
+				lineOptions.color(Color.BLUE);
 
 			}
 
@@ -342,26 +351,37 @@ public class DetailActivity extends Activity implements LocationListener {
 			googleMap.addPolyline(lineOptions);
 		}
 	}
-
-	public void onLocationChanged(Location location) { 
+	
+	public void onLocationChanged(Location location) {
 		// Draw the marker if destination location is not set
 		if (mMarkerPoints.size() < 2) {
 
 			double mLatitude = location.getLatitude();
 			double mLongitude = location.getLongitude();
 
-			LatLng currentPoint = new LatLng(mLatitude, mLongitude);
-			LatLng destinationPoint = getLocationFromAdress(inputAdress
+			final LatLng currentPoint = new LatLng(mLatitude, mLongitude);
+			final LatLng destinationPoint = getLocationFromAdress(inputAdress
 					.getText().toString());
-
-			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-					currentPoint, 16));
-			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-					destinationPoint, 16));
-			googleMap.moveCamera(CameraUpdateFactory.zoomTo(16));
-			// googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-			// 2000, null);
-			googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+	
+			final View mapView = getFragmentManager().findFragmentById(R.id.map).getView();
+			
+			if (mapView.getViewTreeObserver().isAlive()){
+				mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+					
+					@SuppressLint("NewApi") @SuppressWarnings("deprecation")
+					@Override
+					public void onGlobalLayout() {
+						LatLngBounds bounds = new LatLngBounds.Builder().include(currentPoint).include(destinationPoint).build();
+						
+						if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+							mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+						} else {
+							mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+						}
+						googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+					}
+				});
+			}
 
 			drawMarker(currentPoint);
 			drawMarker(destinationPoint);
@@ -374,7 +394,7 @@ public class DetailActivity extends Activity implements LocationListener {
 		// Creating MarkerOptions
 		MarkerOptions options = new MarkerOptions();
 
-		// Setting the position of the marker 
+		// Setting the position of the marker
 		options.position(point);
 		// For the start location, the color of marker is GREEN and for the end
 		// location, the color of marker is RED.
@@ -414,12 +434,20 @@ public class DetailActivity extends Activity implements LocationListener {
 
 	}
 
+	public boolean canHandleIntent(Intent intent) {
+		PackageManager packageManager = getApplication().getPackageManager();
+		List<ResolveInfo> activities = packageManager.queryIntentActivities(
+				intent, PackageManager.MATCH_DEFAULT_ONLY);
+		return activities.size() > 0;
+	}
+
 	OnClickListener clickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			int i = v.getId();
 			if (i == R.id.detail_src_btn_save) {
+
 				String uid;
 				db.open();
 				Cursor cursor = db.checkFavoriteVendor(dvUID);
@@ -438,6 +466,21 @@ public class DetailActivity extends Activity implements LocationListener {
 							dvImgLink, dvWorkTime);
 				}
 				db.close();
+
+			} else if (i == R.id.detail_src_btn_direction) {
+
+				String uri = "google.navigation:ll=%f,%f";
+				LatLng destinationPoint = getLocationFromAdress(inputAdress
+						.getText().toString());
+				Intent navigation = new Intent(Intent.ACTION_VIEW,
+						Uri.parse(String.format(uri, destinationPoint.latitude,
+								destinationPoint.longitude)));
+				if (canHandleIntent(navigation))
+					startActivity(navigation);
+				else
+					Toast.makeText(getApplication(),
+							"Please install Google Navigation",
+							Toast.LENGTH_LONG).show();
 			} else if (i == R.id.detail_scr_email) {
 
 				Intent sendEmail = new Intent(Intent.ACTION_SEND);
@@ -499,7 +542,7 @@ public class DetailActivity extends Activity implements LocationListener {
 			finish();
 		} else if (id == R.id.back) {
 			Intent homeIntent = new Intent(getApplicationContext(),
-					MainActivity.class);
+					VendorListActivity.class);
 			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(homeIntent);
 			finish();
