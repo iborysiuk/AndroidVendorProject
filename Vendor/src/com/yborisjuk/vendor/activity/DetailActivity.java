@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.yborisjuk.vendor.R;
+import com.yborisjuk.vendor.fragments.FavoriteFragment;
 import com.yborisjuk.vendor.libs.DBVendorHelper;
 import com.yborisjuk.vendor.libs.mySharedPreferences;
 import com.yborisjuk.vendor.libs.json.DirectionsJSONParser;
@@ -342,7 +343,7 @@ public class DetailActivity extends Activity implements LocationListener {
 
 				// Adding all the points in the route to LineOptions
 				lineOptions.addAll(points);
-				lineOptions.width(10);
+				lineOptions.width(7);
 				lineOptions.color(Color.BLUE);
 
 			}
@@ -541,8 +542,15 @@ public class DetailActivity extends Activity implements LocationListener {
 			startActivity(loginIntent);
 			finish();
 		} else if (id == R.id.back) {
-			Intent homeIntent = new Intent(getApplicationContext(),
+			Intent homeIntent;
+			if ((getIntent().getStringExtra("activity")).contains("vendorlist")){
+			
+			homeIntent = new Intent(getApplicationContext(),
 					VendorListActivity.class);
+			} else {
+				homeIntent = new Intent(getApplicationContext(),
+						MainActivity.class);
+			}
 			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(homeIntent);
 			finish();

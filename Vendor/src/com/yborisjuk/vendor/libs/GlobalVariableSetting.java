@@ -41,13 +41,12 @@ public class GlobalVariableSetting extends Application {
 	// Global variables for slider
 	//private String sImgName;
 	private String sImgLink;
-
-	//private static String[] array_sImgName;
+	
 	private static String[] array_sImgLink;
 
 	
 	public GlobalVariableSetting() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public GlobalVariableSetting(String email, String password) {
@@ -256,15 +255,7 @@ public class GlobalVariableSetting extends Application {
 	/**
 	 * 
 	 */
-	
-	/*public String getsImgName() {
-		return sImgName;
-	}
-	
-	public String[] getArray_sImgName() {
-		return array_sImgName;
-	}*/
-	
+
 
 	public String getsImgLink() {
 		return sImgLink;

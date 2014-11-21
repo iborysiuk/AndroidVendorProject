@@ -28,11 +28,17 @@ public class VendorListActivity extends Activity {
 	private VendorsAdapter vAdapter;
 	private GlobalVariableSetting listVendors;
 	private List<GlobalVariableSetting> displayListVendors = new ArrayList<GlobalVariableSetting>();
+	private List<GlobalVariableSetting> tempDispalyListVendors = new ArrayList<GlobalVariableSetting>();
 	private String[] array_uids, array_Names, array_Emails, array_Phones,
 			array_Countries, array_Cities, array_Addresses, array_PostalCodes,
 			array_ImgLinks, array_WorkTimes;
+	private String[] array_tempUids, array_tempNames, array_tempEmails,
+			array_tempPhones, array_tempCountries, array_tempCities,
+			array_tempAddresses, array_tempPostalCodes, array_tempImgLinks,
+			array_tempWorkTimes;
 	private GlobalVariableSetting gvs = new GlobalVariableSetting();
 	private mySharedPreferences sharedPreferences;
+	private int textLength;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,41 +83,91 @@ public class VendorListActivity extends Activity {
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1,
 					int arg2, int arg3) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable cs) {
-			/*	List<GlobalVariableSetting> tempDispalyListVendors = new ArrayList<GlobalVariableSetting>();
+
 				GlobalVariableSetting templistVendors;
-				
-				int textLength = search_box.getText().length();
-				tempDispalyListVendors.clear();
-				for (int i = 0; i < displayListVendors.size(); i++) {
-					if (textLength <= displayListVendors.get(i).getvName()
-							.length()) {
-						if (search_box
-								.getText()
-								.toString()
-								.equalsIgnoreCase(
-										(String) displayListVendors.get(i)
-												.getvName()
-												.subSequence(0, textLength))) {
-							String str = displayListVendors.get(i).getvName();
-							String[] arr = new String[]{str};
-							array_temp = arr;
-							templistVendors = new GlobalVariableSetting(array_temp);
+
+				textLength = search_box.getText().length();
+				int t = 0;
+
+				array_tempUids = new String[displayListVendors.size()];
+				array_tempNames = new String[displayListVendors.size()];
+				array_tempEmails = new String[displayListVendors.size()];
+				array_tempPhones = new String[displayListVendors.size()];
+				array_tempCountries = new String[displayListVendors.size()];
+				array_tempCities = new String[displayListVendors.size()];
+				array_tempAddresses = new String[displayListVendors.size()];
+				array_tempPostalCodes = new String[displayListVendors.size()];
+				array_tempImgLinks = new String[displayListVendors.size()];
+				array_tempWorkTimes = new String[displayListVendors.size()];
+
+				if (textLength == 0) {
+					vAdapter = new VendorsAdapter(getApplicationContext(),
+							R.layout.vendors_list, displayListVendors,
+							array_Names);
+				} else {
+					tempDispalyListVendors.clear();
+					for (int i = 0; i < displayListVendors.size(); i++) {
+						if (textLength <= displayListVendors.get(i).getvName()
+								.length()) {
+							if (search_box
+									.getText()
+									.toString()
+									.equalsIgnoreCase(
+											(String) displayListVendors.get(i)
+													.getvName()
+													.subSequence(0, textLength))) {
+
+								array_tempUids[t] = displayListVendors.get(i)
+										.getvUID();
+								array_tempNames[t] = displayListVendors
+										.get(i).getvName();
+								array_tempEmails[t] = displayListVendors.get(
+										i).getvEmail();
+								array_tempPhones[t] = displayListVendors.get(
+										i).getvPhonenumber();
+								array_tempCountries[t] = displayListVendors
+										.get(i).getvCountry();
+								array_tempCities[t] = displayListVendors.get(
+										i).getvCity();
+								array_tempAddresses[t] = displayListVendors
+										.get(i).getvAddress();
+								array_tempPostalCodes[t] = displayListVendors
+										.get(i).getvPostalCode();
+								array_tempImgLinks[t] = displayListVendors
+										.get(i).getvImgLink();
+								array_tempWorkTimes[t] = displayListVendors
+										.get(i).getvWorkTime();
+								t++;
+							}
+						}
+
+					}
+					for (int i = 0; i < array_tempUids.length; i++) {
+
+						templistVendors = new GlobalVariableSetting(
+								array_tempUids[i], array_tempNames[i],
+								array_tempEmails[i], array_tempPhones[i],
+								array_tempCountries[i], array_tempCities[i],
+								array_tempAddresses[i],
+								array_tempPostalCodes[i],
+								array_tempImgLinks[i], array_tempWorkTimes[i]);
+						if (templistVendors.getvName() != null) {
 							tempDispalyListVendors.add(templistVendors);
 						}
 					}
+					vAdapter = new VendorsAdapter(getApplicationContext(),
+							R.layout.vendors_list, tempDispalyListVendors,
+							array_tempNames);
 				}
-				vAdapter = new VendorsAdapter(getApplicationContext(),
-						R.layout.vendors_list, tempDispalyListVendors, array_temp);
-				vendor_list.setAdapter(vAdapter);*/
+				vendor_list.setAdapter(vAdapter);
 			}
 		});
-	
+
 		vendor_list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -121,27 +177,57 @@ public class VendorListActivity extends Activity {
 				Intent detail = new Intent(getApplicationContext(),
 						DetailActivity.class);
 
-				detail.putExtra("uid", displayListVendors.get(position)
-						.getvUID());
-				detail.putExtra("name", displayListVendors.get(position)
-						.getvName());
-				detail.putExtra("email", displayListVendors.get(position)
-						.getvEmail());
-				detail.putExtra("phone", displayListVendors.get(position)
-						.getvPhonenumber());
-				detail.putExtra("country", displayListVendors.get(position)
-						.getvCountry());
-				detail.putExtra("city", displayListVendors.get(position)
-						.getvCity());
-				detail.putExtra("address", displayListVendors.get(position)
-						.getvAddress());
-				detail.putExtra("postalcode", displayListVendors.get(position)
-						.getvPostalCode());
-				detail.putExtra("imgLink", displayListVendors.get(position)
-						.getvImgLink());
-				detail.putExtra("workTime", displayListVendors.get(position)
-						.getvWorkTime());
+				if (textLength != 0) {
 
+					detail.putExtra("name", tempDispalyListVendors
+							.get(position).getvName());
+					detail.putExtra("uid", tempDispalyListVendors.get(position)
+							.getvUID());
+					detail.putExtra("name", tempDispalyListVendors
+							.get(position).getvName());
+					detail.putExtra("email",
+							tempDispalyListVendors.get(position).getvEmail());
+					detail.putExtra("phone",
+							tempDispalyListVendors.get(position)
+									.getvPhonenumber());
+					detail.putExtra("country",
+							tempDispalyListVendors.get(position).getvCountry());
+					detail.putExtra("city", tempDispalyListVendors
+							.get(position).getvCity());
+					detail.putExtra("address",
+							tempDispalyListVendors.get(position).getvAddress());
+					detail.putExtra("postalcode",
+							tempDispalyListVendors.get(position)
+									.getvPostalCode());
+					detail.putExtra("imgLink",
+							tempDispalyListVendors.get(position).getvImgLink());
+					detail.putExtra("workTime",
+							tempDispalyListVendors.get(position).getvWorkTime());
+
+				} else {
+
+					detail.putExtra("uid", displayListVendors.get(position)
+							.getvUID());
+					detail.putExtra("name", displayListVendors.get(position)
+							.getvName());
+					detail.putExtra("email", displayListVendors.get(position)
+							.getvEmail());
+					detail.putExtra("phone", displayListVendors.get(position)
+							.getvPhonenumber());
+					detail.putExtra("country", displayListVendors.get(position)
+							.getvCountry());
+					detail.putExtra("city", displayListVendors.get(position)
+							.getvCity());
+					detail.putExtra("address", displayListVendors.get(position)
+							.getvAddress());
+					detail.putExtra("postalcode",
+							displayListVendors.get(position).getvPostalCode());
+					detail.putExtra("imgLink", displayListVendors.get(position)
+							.getvImgLink());
+					detail.putExtra("workTime", displayListVendors
+							.get(position).getvWorkTime());
+				}
+					detail.putExtra("activity", "vendorlist");
 				detail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(detail);
 				finish();

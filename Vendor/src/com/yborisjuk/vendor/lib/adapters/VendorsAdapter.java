@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class VendorsAdapter extends ArrayAdapter<GlobalVariableSetting>{
+public class VendorsAdapter extends ArrayAdapter<GlobalVariableSetting> {
 
 	private Context context;
 	private List<GlobalVariableSetting> displayListVendors;
@@ -34,16 +34,23 @@ public class VendorsAdapter extends ArrayAdapter<GlobalVariableSetting>{
 	}
 
 	public View getView(final int position, View view, ViewGroup parent) {
+
 		final ViewHolder holder;
+
 		if (view == null) {
+
 			holder = new ViewHolder();
 			view = inflater.inflate(R.layout.vendors_list, null);
 			holder.vName = (TextView) view.findViewById(R.id.vendor_ls_vName);
 			view.setTag(holder);
+
 		} else {
+
 			holder = (ViewHolder) view.getTag();
 		}
+
 		holder.vName.setText(displayListVendors.get(position).getvName());
+
 		return view;
 	}
 }
