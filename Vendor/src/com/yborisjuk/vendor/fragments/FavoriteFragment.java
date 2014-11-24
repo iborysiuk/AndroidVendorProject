@@ -10,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,9 +21,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.yborisjuk.vendor.R;
 import com.yborisjuk.vendor.activity.DetailActivity;
+import com.yborisjuk.vendor.activity.LoginActivity;
+import com.yborisjuk.vendor.activity.MainActivity;
 import com.yborisjuk.vendor.lib.adapters.VendorsAdapter;
 import com.yborisjuk.vendor.libs.DBVendorHelper;
 import com.yborisjuk.vendor.libs.GlobalVariableSetting;
+import com.yborisjuk.vendor.libs.mySharedPreferences;
 
 public class FavoriteFragment extends Fragment {
 
@@ -40,6 +46,7 @@ public class FavoriteFragment extends Fragment {
 			array_tempWorkTimes;
 	private Cursor cursor;
 	private int textLength;
+	private mySharedPreferences sharedPreferences;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -51,6 +58,8 @@ public class FavoriteFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+		
+		setHasOptionsMenu(true);
 
 		db = new DBVendorHelper(getActivity());
 		favorite_list = (ListView) getActivity().findViewById(
@@ -272,5 +281,30 @@ public class FavoriteFragment extends Fragment {
 			}
 		});
 
+	}
+	
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.additional_menu, menu);
+	};
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		int id = item.getItemId();
+		if (id == R.id.logout) {
+			sharedPreferences = new mySharedPreferences(getActivity());
+			sharedPreferences.clearPrefence();
+
+			Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+			loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(loginIntent);
+			getActivity().finish();
+		} else if (id == R.id.back) {
+			Intent homeIntent = new Intent(getActivity(), MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+			getActivity().finish();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

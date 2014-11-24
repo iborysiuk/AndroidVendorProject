@@ -4,55 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}"
+    android:padding="5dp" >
 
     <ImageView
         android:id="@+id/detail_scr_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher"
+        style="@style/myImageView" />
 
     <TextView
         android:id="@+id/detail_src_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/detail_src_tel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/detail_scr_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/detail_src_tel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/detail_scr_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp" 
+            android:textStyle="italic"
+            android:textColor="#1304BA"  />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/detail_scr_address"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:textStyle="italic|bold"  />
 
     <TextView
         android:id="@+id/detail_scr_workTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/detail_src_btn_save"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:gravity="center" >
 
-    <Button
-        android:id="@+id/detail_src_btn_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <Button
+            android:id="@+id/detail_src_btn_save"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Favorite"
+            style="@style/DefaultButtonText"
+            android:background="@drawable/button_background"
+            android:drawableLeft="@android:drawable/star_off" />
+
+        <Button
+            android:id="@+id/detail_src_btn_direction"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Direction"
+             style="@style/DefaultButtonText"
+             android:background="@drawable/button_background"
+             android:drawableLeft="@android:drawable/ic_menu_directions"
+             android:paddingLeft="5dp" />
+
+    </LinearLayout>
 
     <fragment
         android:id="@+id/map"

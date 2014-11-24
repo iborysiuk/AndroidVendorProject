@@ -3,6 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_background"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context="${relativePackage}.${activityClass}" >
@@ -15,6 +16,7 @@
 
         <ImageView
             android:id="@+id/register_scr_camera"
+            style="@style/myImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@android:drawable/ic_menu_camera" />
@@ -25,49 +27,76 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/default_back_color" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/register_scr_edtxt_usrname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_user"
         android:ems="10"
         android:hint="@string/register_scr_edtxt_name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null"
+        android:drawablePadding="5dp" />
 
     <EditText
         android:id="@+id/register_scr_edtxt_email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_email"
         android:ems="10"
         android:hint="@string/register_scr_edtxt_email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null"
+        android:drawablePadding="5dp" />
 
     <EditText
         android:id="@+id/register_scr_edtxt_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_password"
         android:ems="10"
         android:hint="@string/register_scr_edtxt_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null"
+        android:drawablePadding="5dp" />
 
     <EditText
         android:id="@+id/register_scr_edtxt_city"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_city"
         android:ems="10"
-        android:hint="@string/register_scr_edtxt_city" />
+        android:hint="@string/register_scr_edtxt_city"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null"
+        android:drawablePadding="5dp" />
 
     <Button
         android:id="@+id/register_scr_btn_register"
+        style="@style/DefaultButtonText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_margin="15dp"
         android:layout_marginTop="15dp"
+        android:background="@drawable/button_background"
         android:text="@string/register_scr_btn_register" />
 
 </LinearLayout>

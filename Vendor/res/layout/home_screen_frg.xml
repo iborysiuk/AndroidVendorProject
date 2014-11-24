@@ -8,18 +8,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_weight="0.05"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="#DAF0DE" >
+        android:padding="2dp"
+        android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/detail_scr_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_camera" />
+            android:src="@android:drawable/ic_menu_camera"
+            style="@style/myImageView" />
 
         <TextView
             android:id="@+id/detail_scr_txt_user_name"
@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25sp"
             android:textStyle="bold|italic" />
@@ -63,10 +62,12 @@
 
     <Button
         android:id="@+id/home_scr_frg_btn_vendors"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Button" /> 
+        android:text="Vendors"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button_background" /> 
         
     </LinearLayout>
     

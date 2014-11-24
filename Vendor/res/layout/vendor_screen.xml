@@ -3,15 +3,21 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7DA94"
     android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}"
-    android:padding="10dp" >
+    android:padding="10dp"
+    tools:context="${relativePackage}.${activityClass}" >
 
     <EditText
         android:id="@+id/vendor_scr_search_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
+        android:layout_height="40dp"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:ems="10"
+        android:hint="Search"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" >
 
         <requestFocus />
     </EditText>

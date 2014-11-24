@@ -8,8 +8,14 @@
     <EditText
         android:id="@+id/favorite_scr_search_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
+        android:layout_height="40dp"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Search"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" >
 
         <requestFocus />
     </EditText>

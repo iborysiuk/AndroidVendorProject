@@ -11,6 +11,7 @@
 
         <ImageView
             android:id="@+id/setting_scr_camera"
+            style="@style/myImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@android:drawable/ic_menu_camera" />
@@ -28,10 +29,16 @@
         android:id="@+id/setting_scr_edtxt_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="5dp"
         android:ems="10"
+        android:enabled="false"
         android:hint="@string/setting_scr_edtxt_name"
         android:inputType="textPersonName"
-        android:enabled="false" >
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" >
 
         <requestFocus />
     </EditText>
@@ -41,33 +48,53 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="5dp"
         android:ems="10"
+        android:enabled="false"
         android:hint="@string/setting_scr_edtxt_email"
         android:inputType="textEmailAddress"
-        android:enabled="false" />
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/setting_scr_edtxt_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/setting_scr_edtxt_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/setting_scr_edtxt_city"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rec_edittxt_style"
+        android:drawableLeft="@drawable/ic_city"
+        android:drawablePadding="5dp"
         android:ems="10"
-        android:hint="@string/setting_scr_edtxt_city" />
+        android:hint="@string/setting_scr_edtxt_city"
+        android:paddingLeft="5dp"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/setting_scr_btn_update"
+        style="@style/DefaultButtonText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="15dp"
+        android:background="@drawable/button_background"
         android:text="@string/setting_scr_btn_update" />
 
 </LinearLayout>
